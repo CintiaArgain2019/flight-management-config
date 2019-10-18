@@ -1,0 +1,38 @@
+
+server:
+  port: 9000
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        flights:
+          path: /booking/api/v1/**
+          serviceId: flight-management-flights-service
+        booking:
+          path: /flight/api/v1/**
+          serviceId: flight-management-booking-service
+      
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
+
+---
+spring:
+  profiles: production
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://flight-management-discovery-service:8761/eureka
+  instance:
+    preferIpAddress: true

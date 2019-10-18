@@ -1,0 +1,47 @@
+server:
+  port: 9020
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream,info,health
+
+spring:
+   # ===============================
+   # = DATA SOURCE
+   # ===============================
+   # Set here configurations for the database connection
+  datasource:
+    url: jdbc:mysql://${DB_HOST_PORT:localhost:3306}/${DATABASE_NAME:booking_db}?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    driverClassName: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${MYSQL_BOOKING_USER}
+    password: ${MYSQL_BOOKING_PASSWORD} 
+
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+       ddl-auto:update  
+    
+---
+spring:
+  profiles: production
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-service:8761/eureka
+  instance:
+    preferIpAddress: true
