@@ -1,5 +1,5 @@
 server:
-  port: 9010
+  port: 9030
 
 eureka:
   client:
@@ -23,7 +23,7 @@ spring:
     base-url: http://${ZIPKIN_HOST:localhost:9411}
     enabled: true
     service:
-      name: flight-management-flights-service
+      name: flight-management-passenger-service
     message-timeout: 10
   sleuth:
     sampler:
@@ -44,20 +44,15 @@ spring:
     generate-ddl: true
     hibernate:
        ddl-auto:update
-      
+
 logging:
   pattern: 
     console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
-   
-logstash:
-   host: logstash
-
-         
+           
 ---
 spring:
   profiles: production
 
-  
 eureka:
   client:
     serviceUrl:

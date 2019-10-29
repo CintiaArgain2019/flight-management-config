@@ -4,21 +4,23 @@ server:
 
 eureka:
   client:
-    registerWithEureka: false
+    registerWithEureka: false  #telling the server not to register himself in the service registry
     fetchRegistry: false
     server:
-      waitTimeInMsWhenSyncEmpty: 0
+      waitTimeInMsWhenSyncEmpty: 0  #wait time for subsequent sync
     serviceUrl:
       defaultZone: http://localhost:8761/eureka
+    instance:
+      prefer-ip-address: false  
 
     
 ---
 spring:
   profiles: production
-
+    
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://flight-management-discovery-service:8761/eureka
+      defaultZone: http://${EUREKA_HOST}:8761/eureka
   instance:
     preferIpAddress: true
